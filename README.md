@@ -44,7 +44,7 @@ Manual Tester | 2 yrs QA in Web & Mobile Apps (Agile) | Reduced defect leakage b
 
 ## Project Experience
 
-### E-Auction Platform (Agri Procurement)
+### E-Auction Platform (Agri Procurement)   www.navankur.org
 - Tested end-to-end auction workflows including registration, bidding, settlement, and reports  
 - Created and executed test cases covering buyer, seller, and admin modules  
 - Identified and reported critical defects impacting auction flow  
