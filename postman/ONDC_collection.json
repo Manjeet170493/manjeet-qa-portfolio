@@ -1,0 +1,4506 @@
+{
+	"info": {
+		"_postman_id": "8877e98c-022f-49f3-a4ca-abfa64e5a7f7",
+		"name": "ONDC - Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2344846"
+	},
+	"item": [
+		{
+			"name": "Associate Auth",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Send OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    // \"input\":\"shayam@navankur.org\",\r\n    \"input\":\"9315692351\",\r\n    \"term_condition\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/send-otp",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"send-otp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();\r",
+											"\r",
+											"pm.collectionVariables.set('token', responseJson.data.token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    // \"userInput\":\"shayam@navankur.org\",\r\n    \"userInput\":\"9315692351\",\r\n    \"inputOTP\" : \"9999\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/register-login",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"register-login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Select User Type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();\r",
+											"\r",
+											"pm.collectionVariables.set('token', responseJson.data.token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userType\":\"farmer\",\r\n    \"userInput\" : \"6448614879\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/select_user_type",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"select_user_type"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step2",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"profession\",\r\n    \"profession_type\":\"associate\"\r\n}\r\n\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step3",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"organization\",\r\n    \"organization_name\":\"Hippo\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step4",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"basic_details\",\r\n    \"associate_details\": {\r\n        \"organization_name\" : \"Sleepwell\",\r\n        \"organization_registration_number\": \"123456Trust\",\r\n        \"farmer_associated_count\": \"12\",\r\n        \"email\": \"ankush@navankur.org\",\r\n        \"phone\": \"7417999581\",\r\n        \"establishment_date\" : \"20-12-2024\",\r\n        \"is_collection_center\" : \"false\",\r\n        \"company_logo\":\"ksjdfdfskjdsfkjdfskj.jpg\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step5-organization_documents",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"organization_documents\",\r\n    \"organization_documents\": {\r\n        \"cin_doc\": {\r\n            \"cin_number\": \"A12345BC6789XYZ123456\",\r\n            \"cin_image\": \"https://example.com/path/to/cin_image.jpg\"\r\n        },\r\n        \"pan_doc\": {\r\n            \"pan_number\": \"CBCDE1234F\",\r\n            \"pan_image\": \"https://example.com/path/to/pan_image.jpg\",\r\n            \"is_verified\": false\r\n        },\r\n        \"gst\": {\r\n            \"gst_number\": \"123456789012\",\r\n            \"is_verified\": false\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step6-comp-owner-detail",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"company_owner_details\",\r\n    \"company_owner_details\": {\r\n        \"name\": \"John Sons\",\r\n        \"email\": \"johndoe@example.com\",\r\n        \"phone\": \"8798787878\",\r\n        \"aadhar_doc\": {\r\n            \"aadhar_number\": \"123456789012\",\r\n            \"aadhar_image\": {\r\n                \"front\": \"https://example.com/path/to/aadhar_front.jpg\",\r\n                \"back\": \"https://example.com/path/to/aadhar_back.jpg\"\r\n            },\r\n            \"is_verified\": false\r\n        },\r\n        \"pan_doc\": {\r\n            \"pan_number\": \"ABCDE1234F\",\r\n            \"pan_image\": \"https://example.com/path/to/pan_image.jpg\",\r\n            \"is_verified\": false\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step7-poc",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"point_of_contact\",\r\n    \"point_of_contact\": {\r\n        \"name\": \"Neeraj Maurya\",\r\n        \"email\": \"harshal@navankur.org\",\r\n        \"mobile\": \"7417999581\",\r\n        \"designation\": \"Developer\",\r\n        \"aadhar_doc\": {\r\n            \"aadhar_number\": \"123456789013\",\r\n            \"aadhar_image\" : {\r\n                \"front\": \"https://example.com/path/to/aadhar_front.jpg\",\r\n                \"back\": \"https://example.com/path/to/aadhar_back.jpg\"\r\n            },\r\n            \"is_verified\": false\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step8-registered_address",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"registered_address\",\r\n    \"registered\": {\r\n        \"line1\": \"123 Main St\",\r\n        \"line2\": \"Apt 4B\",\r\n        \"country\": \"CountryName\",\r\n        \"state\": \"StateName\",\r\n        \"district\": \"DistrictName\",\r\n        \"city\": \"cityName\",\r\n        \"tehsil\": \"TalukaName\",\r\n        \"pinCode\": \"123456\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step8-operational_address",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"operational_address\",\r\n    \"operational\": {\r\n        \"line1\": \"123 Main St\",\r\n        \"line2\": \"Apt 4B\",\r\n        \"country\": \"CountryName\",\r\n        \"state\": \"StateName\",\r\n        \"district\": \"DistrictName\",\r\n        \"city\": \"cityName\",\r\n        \"tehsil\": \"TalukaName\",\r\n        \"pinCode\": \"123456\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step9-Bank",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"bank_details\",\r\n    \"bank_details\": [\r\n        {\r\n            \"bank_name\": \"State Bank of India\",\r\n            \"branch_name\": \"MG Road Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"SBIN0001234\",\r\n            \"account_number\": \"123456789012\",\r\n            \"cheque\": \"cheque_image_url_here\",\r\n            \"is_primary\": true\r\n        },\r\n        {\r\n            \"bank_name\": \"HDFC Bank\",\r\n            \"branch_name\": \"Bandra West Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"HDFC0005678\",\r\n            \"account_number\": \"987654321098\",\r\n            \"cheque\": \"another_cheque_image_url_here\",\r\n            \"is_primary\": false\r\n        },\r\n        {\r\n            \"bank_name\": \"ICICI Bank\",\r\n            \"branch_name\": \"Bandra West Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"HDFC0005678\",\r\n            \"account_number\": \"987654321098\",\r\n            \"cheque\": \"another_cheque_image_url_here\",\r\n            \"is_primary\": false\r\n        },\r\n        {\r\n            \"bank_name\": \"Punjab Bank\",\r\n            \"branch_name\": \"Bandra West Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"HDFC0005678\",\r\n            \"account_number\": \"987654321098\",\r\n            \"cheque\": \"another_cheque_image_url_here\",\r\n            \"is_primary\": false\r\n        }\r\n        \r\n    ]\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step10 - infrastructure",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"infrastructure_details\",\r\n    \"infrastructure_details\": {\r\n        \"warehouse\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Warehouse Name 1\", \"Warehouse Name 2\"]\r\n        },\r\n        \"coldStorage\": {\r\n            \"isOrNot\": false,\r\n            \"name\": []\r\n        },\r\n        \"processing_unit\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Processing Unit Name 1\"]\r\n        },\r\n        \"transport_facilities\": {\r\n            \"isOrNot\": false,\r\n            \"name\": []\r\n        },\r\n        \"retail_shop\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Retail Shop Name 1\"]\r\n        }\r\n    }\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step11 - Financial",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"financial_credit\",\r\n    \"financial_credit\": {\r\n        \"credit_facilities\": {\r\n            \"isOrNot\": true,\r\n            \"bank_name\": [\"ICICI\"] \r\n        },\r\n        \"financial_challenges\": \"Facing delays in payments.\",\r\n        \"support_required\": \"Advice on cash flow management.\"\r\n    }\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step12 - Marketing",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"marketing_output\",\r\n    \"marketing_output\": {\r\n        \"crop_sold\": \"Gram\",\r\n        \"quantity_sold\": \"500 kg\",\r\n        \"average_selling_price\": \"20 per kg\",\r\n        \"marketing_channel_used\": \"Local Market\",\r\n        \"challenges_faced_in_selling\": \"Competition from other sellers\"\r\n    }\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Associate onboarding",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/associate-onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"associate-onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Associate",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"phone\":\"9140171343\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/auth/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"auth",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Add Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"Almond6\",\r\n    \"category_id\": \"673ae1f5d124d10f2b826624\",\r\n    \"sub_category\": \"Mobile Phones\",\r\n    \"country_of_origin\": \"China\",\r\n    \"short_description\": \"A brief description of the product.\",\r\n    \"long_description\": \"A detailed description of the product, including features and specifications.\",\r\n    \"brand_name\": \"Brand Name\",\r\n    \"fassai_number\": \"343343434343\",\r\n    \"isBrandSameAsStore\": true,\r\n    \"media\": {\r\n        \"thumbnail_image\": [\r\n            {\r\n                \"url\": \"https://example.com/image1.jpg\"\r\n            },\r\n            {\r\n                \"url\": \"https://example.com/image2.jpg\"\r\n            }\r\n        ],\r\n        \"images\": {\r\n            \"url\": \"https://example.com/thumbnail.jpg\"\r\n        },\r\n        \"video\": {\r\n            \"url\": \"https://example.com/thumbnail.jpg\"\r\n        }\r\n        \r\n    },\r\n    \"unit_of_sales\": {\r\n        \"units\": {\r\n            \"value\": 1,\r\n            \"unit\": \"673b28208b37e554012f950a\"\r\n        },\r\n        \"units_stock\": {\r\n            \"value\": 100,\r\n            \"unit\": \"673b28208b37e554012f950a\"\r\n        }\r\n    },\r\n    \"pricing\": {\r\n        // \"description\": \"Standard pricing for the product\",\r\n        \"initial\": {\r\n            \"value\": 1,\r\n            \"currency\": \"673b2155342c82c3b53befd0\"\r\n        },\r\n        \"final\": {\r\n            \"value\": 1,\r\n            \"currency\": \"673b2155342c82c3b53befd0\"\r\n        }\r\n    },\r\n    \"slab_pricing\": [\r\n        {\r\n            \"order_quantity\": {\r\n                \"minimum\": {\r\n                    \"value\": 10,\r\n                    \"unit\": \"673b28208b37e554012f950a\"\r\n                },\r\n                \"maximum\": {\r\n                    \"value\": 50,\r\n                    \"unit\": \"673b28208b37e554012f950a\"\r\n                }\r\n            },\r\n            \"price\": {\r\n                \"value\": 90,\r\n                \"unit\": \"673b2155342c82c3b53befd0\"\r\n            }\r\n        },\r\n        {\r\n            \"order_quantity\": {\r\n                \"minimum\": {\r\n                    \"value\": 51,\r\n                    \"unit\": \"673b28208b37e554012f950a\"\r\n                },\r\n                \"maximum\": {\r\n                    \"value\": 100,\r\n                    \"unit\": \"673b28208b37e554012f950a\"\r\n                }\r\n            },\r\n            \"price\": {\r\n                \"value\": 85,\r\n                \"unit\": \"673b2155342c82c3b53befd0\"\r\n            }\r\n        }\r\n    ],\r\n    \"packaging_details\": {\r\n        \"dimension\": {\r\n            \"value\": \"30x20x10\",\r\n            \"unit\": \"673b28208b37e554012f950a\"\r\n        },\r\n        \"length\": \"30\",\r\n        \"width\": \"20\",\r\n        \"height\": \"10\",\r\n        \"units_in_package\": 10\r\n    },\r\n    \"shipping_details\": {\r\n        \"incoterms\": [\r\n            { \"value\": \"673dafe224f0f6117f80a479\", \"isChecked\": true },\r\n            { \"value\": \"673dafef24f0f6117f80a47b\", \"isChecked\": true },\r\n            { \"value\": \"673daffb24f0f6117f80a47d\", \"isChecked\": true }\r\n            ],\r\n        \"leadTime\": {\r\n            \"days\": 7\r\n        },\r\n        \"hsCode\": \"1234567890\",\r\n        \"isCancellationAllowed\": true,\r\n        \"isReturnsAllowed\": true,\r\n        \"payment_type\" : \"ON-FULFILLMENT\",\r\n        \"order_fulfillment\" : \"Delivery\"\r\n    },\r\n    \"issue_refund\" : {\r\n        \"order_pending\" : true,\r\n        \"order_packed\" : true,\r\n        \"order_delivered\" : true,\r\n        \"replacement\" : true\r\n    } \r\n    \r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/product",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/product",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bulk Upload",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Ankush/Downloads/Book 11 - Copy.xlsx"
+										},
+										{
+											"key": "isxlsx",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/product/bulk-upload",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"product",
+										"bulk-upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/product/product-detail/6747fc3fbdd7e8de7e439c87",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"product",
+										"product-detail",
+										"6747fc3fbdd7e8de7e439c87"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Stats",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/product/stats",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"product",
+										"stats"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\" : \"674065abb535be031aedda9b\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/product/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"product",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Warehouse",
+					"item": [
+						{
+							"name": "Add Warehouse",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"warehouse_details\": {\r\n    \"name\": \"East Warehouse\",\r\n    \"capacity\": {\r\n      \"value\": 500,\r\n      \"unit\": \"673b28208b37e554012f950a\" \r\n    },\r\n    \"isWeighBridge\": true,\r\n    \"storageType\": \"dry\"\r\n  },\r\n  \"address_details\": {\r\n      \"line1\": \"123 Warehouse Road\",\r\n      \"line2\": \"Building 5\",\r\n      \"state\": \"Maharashtra\",\r\n      \"district\": \"Pune\",\r\n      \"city\": \"Pune\",\r\n      \"tehsil\": \"Pune City\",\r\n      \"pinCode\": \"411001\",\r\n      \"block\": \"Central\"\r\n    },\r\n    \r\n  \r\n  \"authorised_person\": {\r\n    \"name\": \"John Doe\",\r\n    \"designation\": \"Manager\",\r\n    \"phone\": \"9876543210\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"aadhar_doc\": {\r\n      \"aadhar_number\": \"123412341234\",\r\n      \"aadhar_image\": {\r\n        \"front\": \"https://example.com/aadhar_front.jpg\",\r\n        \"back\": \"https://example.com/aadhar_back.jpg\"\r\n      },\r\n      \"is_verified\": false\r\n    }\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/warehouse",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"warehouse"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Warehouse List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/warehouse",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"warehouse"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"warehouseId\" :\"6740607aa493b7f5c77c4e5a\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/warehouse/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"warehouse",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Lots",
+					"item": [
+						{
+							"name": "Add Lot",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"product_id\": \"676e6e76ecd9c3eec3ad2834\",\r\n  \"inventory_id\": \"676e6e76ecd9c3eec3ad2834\",\r\n  \"lot_details\": {\r\n    \"farmer_id\": \"676fad11e698c80f5803feb6\",\r\n    \"quantity\": {\r\n      \"value\": 100,\r\n      \"unit\": \"673b28208b37e554012f950a\"\r\n    },\r\n    \"product_expiry\": \"2025-12-31\",\r\n    \"product_price\": \"1500\",\r\n    \"warehouse\": \"Warehouse 1\"\r\n  },\r\n  \"additional_details\": {\r\n    \"land\": \"676fada5e698c80f5803fece\",\r\n    \"commodity\": \"675a8f69bbcbab89eebed8bc\",\r\n    \"crop\": \"675ac8efb1bc89ce5e92a3ab\",\r\n    \"crop_variety\": \"675bf887956b53fda148ef3d\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/lot",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"lot"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Lot List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/lot/list/676e6e76ecd9c3eec3ad2834",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"lot",
+										"list",
+										"676e6e76ecd9c3eec3ad2834"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Lot",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lotId\" : \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/lot/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"lot",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Inventory",
+					"item": [
+						{
+							"name": "Inventory List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/inventory",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"inventory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Stats",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/inventory/stats",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"inventory",
+										"stats"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Farmers",
+					"item": [
+						{
+							"name": "Add Farmer",
+							"item": [
+								{
+									"name": "Step1-basicDetails",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"basic_details\",\r\n    \"basic_details\": {\r\n        \"farmer_name\" : \"Kareena\",\r\n        \"father_husband_name\": \"raj kapoor\",\r\n        \"email\": \"kareena@navankur.org\",\r\n        \"phone\": \"9315692351\",\r\n        \"establishment_date\" : \"20-12-2024\",\r\n        \"dob\" : \"20-12-2000\",\r\n        \"gender\" : \"male\",\r\n        \"category\" : \"gen\",\r\n        \"profile_photo\":\"ksjdfdfskjdsfkjdfskj.jpg\",\r\n        \"farmer_type\" : \"Individual\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/basic-details",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"basic-details"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step2-address",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"address\",\r\n    \"farmerId\" : \"676fd87f213248185782f8db\",\r\n    \"address\": [\r\n        {\r\n            \"line1\": \"Haryana Main St\",\r\n            \"line2\": \"Apt 4B\",\r\n            \"country\": \"CountryName\",\r\n            \"state\": \"StateName\",\r\n            \"district\": \"DistrictName\",\r\n            \"block\": \"blockName\",\r\n            \"tehsil\": \"TalukaName\",\r\n            \"pinCode\": \"123456\"\r\n        }\r\n        \r\n    ]\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step3-Bank",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"bank_details\",\r\n    \"farmerId\" : \"676fd87f213248185782f8db\",\r\n    \"bank_details\": [\r\n        {\r\n            \"bank_name\": \"State Bank of India\",\r\n            \"branch_name\": \"MG Road Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"SBIN0001234\",\r\n            \"account_number\": \"123456789012\",\r\n            \"cheque\": \"cheque_image_url_here\",\r\n            \"is_primary\": true\r\n        }\r\n        \r\n    ]\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step4 - insurance",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"insurance_details\",\r\n    \"farmerId\" : \"676fd87f213248185782f8db\",\r\n    \"insurance_details\": [\r\n        {\r\n            \"crop_name\": \"Wheat\",\r\n            \"insurance_company\": \"ABC Insurance\",\r\n            \"land\": \"Field A\",\r\n            \"insurance_worth\": \"50000\",\r\n            \"insurance_premium\": \"5000\",\r\n            \"start_date\": \"2024-01-01\",\r\n            \"end_date\": \"2024-12-31\"\r\n        },\r\n        {\r\n            \"crop_name\": \"Gram\",\r\n            \"insurance_company\": \"XYZ Insurance\",\r\n            \"land\": \"Field B\",\r\n            \"insurance_worth\": \"60000\",\r\n            \"insurance_premium\": \"6000\",\r\n            \"start_date\": \"2024-02-01\",\r\n            \"end_date\": \"2024-11-30\"\r\n        }\r\n    ]\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step4.1 - KYC",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"kyc_details\",\r\n    \"farmerId\" : \"676fd87f213248185782f8db\",\r\n    \"kyc_details\": {\r\n        \"aadhar_doc\": {\r\n            \"aadhar_number\": \"123456789012\",\r\n            \"aadhar_image\": {\r\n                \"front\": \"https://example.com/path/to/aadhar_front.jpg\",\r\n                \"back\": \"https://example.com/path/to/aadhar_back.jpg\"\r\n            },\r\n            \"is_verified\": false\r\n        },\r\n        \"pan_doc\": {\r\n            \"pan_number\": \"ABCDE1234F\",\r\n            \"pan_image\": \"https://example.com/path/to/pan_image.jpg\",\r\n            \"is_verified\": false\r\n        }\r\n    }\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step5 - infrastructure",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"infrastructure_details\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"infrastructure_details\": {\r\n        \"warehouse\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Warehouse Name 1\", \"Warehouse Name 2\"]\r\n        },\r\n        \"coldStorage\": {\r\n            \"isOrNot\": false,\r\n            \"name\": []\r\n        },\r\n        \"processing_unit\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Processing Unit Name 1\"]\r\n        },\r\n        \"transport_facilities\": {\r\n            \"isOrNot\": false,\r\n            \"name\": []\r\n        },\r\n        \"retail_shop\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Retail Shop Name 1\"]\r\n        }\r\n    }\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step6 - Financial",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"financial_credit\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"financial_credit\": {\r\n        \"credit_facilities\": {\r\n            \"isOrNot\": true,\r\n            \"bank_name\": [\"ICICI\"] \r\n        },\r\n        \"financial_challenges\": \"Facing delays in payments.\",\r\n        \"support_required\": \"Advice on cash flow management.\"\r\n    }\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step7 - Marketing",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"marketing_output\",\r\n    \"farmerId\" : \"676fd87f213248185782f8db\",\r\n    \"marketing_output\": {\r\n        \"crop_sold\": \"Gram\",\r\n        \"quantity_sold\": \"500 kg\",\r\n        \"average_selling_price\": \"20 per kg\",\r\n        \"marketing_channel_used\": \"Local Market\",\r\n        \"challenges_faced_in_selling\": \"Competition from other sellers\"\r\n    }\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step-8-Land",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"land\",\r\n    \"farmerId\" : \"676fd87f213248185782f8db\",\r\n    \"land_mark_detail\": {\r\n        // \"total_area\": \"400 acres\",\r\n        // \"total_distance\": \"2 km\",\r\n        \"lat\": \"25.276987\",\r\n        \"long\": \"55.296249\"\r\n        \r\n    },\r\n    \"address\": {\r\n        \"pin_code\": \"123456\",\r\n        \"state\": \"Maharashtra\",\r\n        \"district\": \"Pune\",\r\n        \"village\": \"Velhe\",\r\n        \"land\": {\r\n            \"area\": \"10\",\r\n            \"unit\": \"Acre\"\r\n        }\r\n    },\r\n    \"additional_land_info\": {\r\n        \"land_name\": \"Babu Banarsidas\",\r\n        \"khtauni_number\": \"KT001\",\r\n        \"khasra_number\": \"KH002\",\r\n        \"khata_number\": \"KH003\",\r\n        \"cultivation\": {\r\n            \"area\": \"8\",\r\n            \"unit\": \"Acre\"\r\n        }\r\n    },\r\n    \"soil_testing_details\": {\r\n        \"is_soil_testing\": true,\r\n        \"land\": \"Field B\",\r\n        \"soil_health_card_number\": \"SHC12345\",\r\n        \"soil_type\": \"Loam\",\r\n        \"ph_value\": \"6.5\",\r\n        \"nutrient_levels\": \"High\",\r\n        \"organic_content\": \"Moderate\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/land",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"land"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step9- Crop",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"crop\",\r\n    \"farmerId\" : \"676e5c250da839b44e0d87a0\",\r\n    \"crop_details\": {\r\n        \"name\": \"675accccb1bc89ce5e92a3e4\",     //////  data come cropName  _id\r\n        \"season\": \"\",\r\n        \"commodity\": \"675a8edfbbcbab89eebed8ad\", //////// data come commodities   _id\r\n        \"variety\": \"6761161f9884b64879a12fd8\", //// data come cropVariety _id\r\n        \"sowing_date\": \"2024-11-01\",\r\n        \"harvesting_date\": \"\",\r\n        \"production\": {\r\n            \"quantity\": \"500\",\r\n            \"unit\": \"Acre\"\r\n        },\r\n        \"selling_price\": \"1500\",\r\n        \"land_name\": \"676907d1939c68337f09d424\",\r\n        \"cultivation\": {\r\n            \"area\": \"2.5\",\r\n            \"unit\": \"Hectare\"\r\n        }\r\n    },\r\n    \"crop_growth_stage\": {\r\n        \"seeding\": {\r\n            \"days_to_reach_stage\": \"\"\r\n        },\r\n        \"germination\": {\r\n            \"days_to_reach_stage\": null\r\n        },\r\n        \"vegetative_propagation\": {\r\n            \"days_to_reach_stage\": \"15\"\r\n        },\r\n        \"maturity\": {\r\n            \"expected_maturity_date\": \"2025-04-01\",\r\n            \"observation_on_maturity\": \"\"\r\n        },\r\n        \"ripening\": {\r\n            \"no_of_days_token\": \"30\",\r\n            \"signs_of_ripening\": \"\"\r\n        },\r\n        \"ready_to_hravest\": {\r\n            \"expected_harvest_date\": \"2025-04-15\",\r\n            \"yield_estimate\": {\r\n                \"yield\": \"400\",\r\n                \"unit\": \"Acre\"\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/crop",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"crop"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step10 Farming",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"farming\",\r\n    \"farmerId\" : \"676fc013c52f04e9d65466f6\",\r\n    \"crop_details\": {\r\n        \"name\": \"Wheat\",\r\n        \"variety\": \"Durum\"\r\n    },\r\n    \"farming_details\": {\r\n        \"seeds_name\": \"Golden Wheat\",\r\n        \"seed_company_name\": \"AgroSeed Corp\",\r\n        \"package_size\": \"5 kg\",\r\n        \"total_package_required\": \"10\",\r\n        \"purchase_date\": \"2024-11-01\"\r\n    },\r\n    \"fertilizer\": [\r\n        {\r\n            \"fertilizer_name\": \"Urea\",\r\n            \"fertilizer_company_name\": \"GreenFertilizers Ltd\",\r\n            \"package_size\": \"50 kg\",\r\n            \"total_package_required\": \"2\",\r\n            \"purchase_date\": \"2024-11-02\",\r\n            \"dose\": \"50 g per sq m\"\r\n        }\r\n    ],\r\n    \"micronutrients\": [\r\n        {\r\n            \"micronutrients_name\": \"Zinc\",\r\n            \"micronutrients_company_name\": \"MicroNutri Inc\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"5\",\r\n            \"purchase_date\": \"2024-11-03\",\r\n            \"dose\": \"20 g per sq m\"\r\n        },\r\n        {\r\n            \"micronutrients_name\": \"Magnisium\",\r\n            \"micronutrients_company_name\": \"MicroNutri Inc\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"5\",\r\n            \"purchase_date\": \"2024-11-03\",\r\n            \"dose\": \"20 g per sq m\"\r\n        }\r\n    ],\r\n    \"herbicides\": [\r\n        {\r\n            \"herbicides_name\": \"Glyphosate\",\r\n            \"herbicides_company_name\": \"AgriHerb Solutions\",\r\n            \"package_size\": \"1 L\",\r\n            \"total_package_required\": \"2\",\r\n            \"purchase_date\": \"2024-11-04\",\r\n            \"dose\": \"50 ml per sq m\"\r\n        }\r\n    ],\r\n    \"insecticides\": [\r\n        {\r\n            \"insecticides_name\": \"Neem Oil\",\r\n            \"insecticides_company_name\": \"NaturalProtect Ltd\",\r\n            \"package_size\": \"500 ml\",\r\n            \"total_package_required\": \"3\",\r\n            \"purchase_date\": \"2024-11-05\",\r\n            \"dose\": \"10 ml per sq m\"\r\n        }\r\n    ],\r\n    \"fungicides\": [\r\n        {\r\n            \"fungicides_name\": \"Mancozeb\",\r\n            \"fungicides_company_name\": \"FungiControl\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"4\",\r\n            \"purchase_date\": \"2024-11-06\",\r\n            \"dose\": \"5 g per sq m\"\r\n        }\r\n    ],\r\n    \"irrigation\": [\r\n        {\r\n            \"date\": \"2024-11-07\",\r\n            \"dose\": \"10 L per sq m\"\r\n        }\r\n    ],\r\n    \"farm_equipment\": [\r\n        {\r\n            \"name\": \"Tractor\"\r\n        },\r\n        {\r\n            \"name\": \"Plough\"\r\n        }\r\n    ]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/farming",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"farming"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Farmer Onboarding",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/auth/farmer-onboarding",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"auth",
+												"farmer-onboarding"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Farmer",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Dropdown List Farmer",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/farmer-dropdown-list",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"farmer-dropdown-list"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Farmer Detail",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{local-ondc}}/v1/associate/farmer/farmer-detail/676fd87f213248185782f8db",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"associate",
+												"farmer",
+												"farmer-detail",
+												"676fd87f213248185782f8db"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Quotation",
+					"item": [
+						{
+							"name": "getquotation",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/quotation/",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"quotation",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getquotationById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/quotation/674ede34cf63b50f37c62413",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"quotation",
+										"674ede34cf63b50f37c62413"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getCounts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/quotation/counts",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"quotation",
+										"counts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order Quote",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "// {\r\n//     \"id\" : \"674ede34cf63b50f37c62413\",\r\n//     \"status\" : \"Rejected\"\r\n// }\r\n\r\n{\r\n    \"id\" : \"674ede34cf63b50f37c62413\",\r\n    \"status\" : \"Requoted\",\r\n    \"discount\" : \"10\",\r\n    \"discountType\" : \"Percentage\",\r\n    \"packagingCharge\" : \"40\",\r\n    \"logisticCharge\" : \"50.00\",\r\n    \"paymentType\" : \"ON-FULFILLMENT\",\r\n    \"deliveryTerms\" : \"CIF\",\r\n    \"tradeDocument\" : {\r\n        \"document_type\" : \"import\",\r\n        \"document_image\" : \"adffasasasa.png\"\r\n    },\r\n    \"totalPrice\" : \"200\"\r\n}\r\n\r\n\r\n// {\r\n//     \"id\" : \"674ede34cf63b50f37c62413\",\r\n//     \"status\" : \"Accepted\",\r\n//     \"lots\" : [{\r\n//         \"id\" : \"674d7bf8a6a9f9029d6ec166\",\r\n//         \"qty\" : \"4\"\r\n//     },{\r\n//         \"id\" : \"674abd39d6980516172d4a5e\",\r\n//         \"qty\" : \"6.2\"\r\n//     }],\r\n//     \"discount\" : \"11\",\r\n//     \"discountType\" : \"Percentage\",\r\n//     \"packagingCharge\" : \"40\",\r\n//     \"logisticCharge\" : \"50.00\",\r\n//     \"paymentType\" : \"ON-FULFILLMENT\",\r\n//     \"deliveryTerms\" : \"CIF\",\r\n//     \"tradeDocument\" : {\r\n//         \"document_type\" : \"import\",\r\n//         \"document_image\" : \"adffasasasa.png\"\r\n//     },\r\n//     \"totalPrice\" : \"200\"\r\n\r\n// }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/quotation/",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"quotation",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "Order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/order",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"order"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Chat System",
+					"item": [
+						{
+							"name": "Create or Access Chat",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userId\" : \"675807733c96171bafdd1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/chat-system/chat",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"chat-system",
+										"chat"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Group",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"Megapolis Group\",\r\n    \"users\" :\"[\\\"6751732586747076bedcf2d1\\\",\\\"67527c6a336ec2f0048dad02\\\", \\\"6751529c977e44bf9abf98d1\\\"]\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/chat-system/chat/group",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"chat-system",
+										"chat",
+										"group"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rename Group",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"chatId\" : \"675440992258a24fdde18a83\",\r\n    \"chatName\" :\"JMD Group change\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/chat-system/chat/rename-group",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"chat-system",
+										"chat",
+										"rename-group"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove From Group",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"chatId\" : \"675440992258a24fdde18a83\",\r\n    \"userId\" :\"67527c6a336ec2f0048dad02\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/chat-system/chat/remove-from-group",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"chat-system",
+										"chat",
+										"remove-from-group"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add To Group",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"chatId\" : \"675440992258a24fdde18a83\",\r\n    \"userId\" :\"67527c6a336ec2f0048dad02\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/chat-system/chat/add-to-group",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"chat-system",
+										"chat",
+										"add-to-group"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetching Chats",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/chat-system/chat",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"chat-system",
+										"chat"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Messages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/chat-system/message/67596cc6873f7ea30437ea4f",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"chat-system",
+										"message",
+										"67596cc6873f7ea30437ea4f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send Messages",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"chatId\" : \"67596cc6873f7ea30437ea4f\",\r\n    \"content\" : \"I am very happy to see this\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/chat-system/message",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"chat-system",
+										"message"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Farmer Auth",
+			"item": [
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Add Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"Rohu Fish\",\r\n    \"category_id\": \"676172e3f3217f852b4a4ee0\",\r\n    \"sub_category\": \"Mobile Phones\",\r\n    \"country_of_origin\": \"China\",\r\n    \"short_description\": \"A brief description of the product.\",\r\n    \"long_description\": \"A detailed description of the product, including features and specifications.\",\r\n    \"brand_name\": \"Brand Name\",\r\n    \"fassai_number\": \"343343434343\",\r\n    \"isBrandSameAsStore\": true,\r\n    \"media\": {\r\n        \"thumbnail_image\": [\r\n            {\r\n                \"url\": \"https://example.com/image1.jpg\"\r\n            },\r\n            {\r\n                \"url\": \"https://example.com/image2.jpg\"\r\n            }\r\n        ],\r\n        \"images\": {\r\n            \"url\": \"https://example.com/thumbnail.jpg\"\r\n        }\r\n       \r\n    },\r\n    \"unit_of_sales\": {\r\n        \"units\": {\r\n            \"value\": 1,\r\n            \"unit\": \"673b28208b37e554012f950a\"\r\n        },\r\n        \"units_stock\": {\r\n            \"value\": 100,\r\n            \"unit\": \"673b28208b37e554012f950a\"\r\n        }\r\n    },\r\n    \"pricing\": {\r\n        \"description\": \"Standard pricing for the product\",\r\n        \"initail\": {\r\n            \"value\": 1,\r\n            \"currency\": \"673b2155342c82c3b53befd0\"\r\n        },\r\n        \"final\": {\r\n            \"value\": 1,\r\n            \"currency\": \"673b2155342c82c3b53befd0\"\r\n        }\r\n    },\r\n    \"slab_pricing\": [\r\n        {\r\n            \"order_quantity\": {\r\n                \"minimum\": {\r\n                    \"value\": 10,\r\n                    \"unit\": \"673b28208b37e554012f950a\"\r\n                },\r\n                \"maximum\": {\r\n                    \"value\": 50,\r\n                    \"unit\": \"673b28208b37e554012f950a\"\r\n                }\r\n            },\r\n            \"price\": {\r\n                \"value\": 90,\r\n                \"unit\": \"673b2155342c82c3b53befd0\"\r\n            }\r\n        },\r\n        {\r\n            \"order_quantity\": {\r\n                \"minimum\": {\r\n                    \"value\": 51,\r\n                    \"unit\": \"673b28208b37e554012f950a\"\r\n                },\r\n                \"maximum\": {\r\n                    \"value\": 100,\r\n                    \"unit\": \"673b28208b37e554012f950a\"\r\n                }\r\n            },\r\n            \"price\": {\r\n                \"value\": 85,\r\n                \"unit\": \"673b2155342c82c3b53befd0\"\r\n            }\r\n        }\r\n    ],\r\n    \"packaging_details\": {\r\n        \"dimension\": {\r\n            \"value\": \"30x20x10\",\r\n            \"unit\": \"673b28208b37e554012f950a\"\r\n        },\r\n        \"length\": \"30\",\r\n        \"width\": \"20\",\r\n        \"height\": \"10\",\r\n        \"units_in_package\": 10\r\n    },\r\n    \"shipping_details\": {\r\n        \"incoterms\": [{\r\n            \"value\" : \"673dafe224f0f6117f80a479\",\r\n            \"isChecked\" : true\r\n        }],\r\n        \"leadTime\": {\r\n            \"days\": 7\r\n        },\r\n        \"hsCode\": \"1234567890\",\r\n        \"isCancellationAllowed\": true,\r\n        \"isReturnsAllowed\": true,\r\n        \"payment_type\" : \"ON-FULFILLMENT\",\r\n        \"order_fulfillment\" : \"Delivery\"\r\n    },\r\n    \"issue_refund\" : {\r\n        \"order_pending\" : true,\r\n        \"order_packed\" : true,\r\n        \"order_delivered\" : true,\r\n        \"replacement\" : true\r\n    }\r\n   \r\n \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/product",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/product",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/product/product-detail/6747fc3fbdd7e8de7e439c87",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"product",
+										"product-detail",
+										"6747fc3fbdd7e8de7e439c87"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Stats",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/product/stats",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"product",
+										"stats"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\" : \"674065abb535be031aedda9b\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/product/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"product",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Onboarding",
+					"item": [
+						{
+							"name": "Send OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"input\":\"ankush@navankur.org\",\r\n    // \"input\":\"7417999581\",\r\n    \"term_condition\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/send-otp",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"send-otp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();\r",
+											"\r",
+											"pm.collectionVariables.set('token', responseJson.data.token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userInput\":\"ankush@navankur.org\",\r\n    // \"userInput\":\"7417999581\",\r\n    \"inputOTP\" : \"9999\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/register-login",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"register-login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step2",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"profession\",\r\n    \"profession_type\":\"farmer\"\r\n}\r\n\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step3",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"farmer_name\",\r\n    \"farmer_name\":\"Manmohan Singh farmer\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step - Profile Image",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"profile_image\",\r\n    \"profile_photo\":\"asdsdsdbc.png\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step4.1 PersonalDetails",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"personal_details\",\r\n    \"personal_details\": {\r\n        \"father_husband_name\": \"Manmohan baap\",\r\n        \"dob\" : \"20-12-2001\",\r\n        \"gender\" : \"male\",\r\n        \"category\" : \"gen\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step4-basicDetails",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"basic_details\",\r\n    \"basic_details\": {\r\n        \"email\": \"Manmohan@navankur.org\",\r\n        \"phone\": \"6448614879\",\r\n        \"farmer_type\" : \"Individual\",\r\n        \"aadhar_doc\": {\r\n            \"aadhar_number\": \"123456789012\",\r\n            \"aadhar_image\": {\r\n                \"front\": \"https://example.com/path/to/aadhar_front.jpg\",\r\n                \"back\": \"https://example.com/path/to/aadhar_back.jpg\"\r\n            },\r\n            \"is_verified\": false\r\n        },\r\n        \"pan_doc\": {\r\n            \"pan_number\": \"ABCDE1234F\",\r\n            \"pan_image\": \"https://example.com/path/to/pan_image.jpg\",\r\n            \"is_verified\": false\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step5-address",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"address\",\r\n    \"address\": [\r\n        {\r\n            \"line1\": \"804 Tower A \",\r\n            \"line2\": \"Bhutani cyber park34\",\r\n            \"country\": \"India\",\r\n            \"state\": \"Uttar Pradesh\",\r\n            \"district\": \"G. B. Nagar\",\r\n            \"block\": \"Jewar\",\r\n            \"tehsil\": \"TalukaName\",\r\n            \"pinCode\": \"123456\"\r\n        }\r\n        // {\r\n        //     \"line1\": \"Address line 2\",\r\n        //     \"line2\": \"Apt 4B\",\r\n        //     \"country\": \"CountryName\",\r\n        //     \"state\": \"StateName\",\r\n        //     \"district\": \"DistrictName\",\r\n        //     \"block\": \"blockName\",\r\n        //     \"tehsil\": \"TalukaName\",\r\n        //     \"pinCode\": \"123456\"\r\n        // }\r\n    ]\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step6-Bank",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"bank_details\",\r\n    \"bank_details\": [\r\n        // {\r\n        //     \"bank_name\": \"State Bank of India\",\r\n        //     \"branch_name\": \"MG Road Branch\",\r\n        //     \"account_holder_name\": \"Ankush Kumar\",\r\n        //     \"ifsc_code\": \"SBIN0001234\",\r\n        //     \"account_number\": \"123456789012\",\r\n        //     \"cheque\": \"cheque_image_url_here\",\r\n        //     \"is_primary\": true\r\n        // }\r\n        // {\r\n        //     \"bank_name\": \"HDFC Bank\",\r\n        //     \"branch_name\": \"Bandra West Branch\",\r\n        //     \"account_holder_name\": \"Ankush Kumar\",\r\n        //     \"ifsc_code\": \"HDFC0005678\",\r\n        //     \"account_number\": \"987654321098\",\r\n        //     \"cheque\": \"another_cheque_image_url_here\",\r\n        //     \"is_primary\": false\r\n        // }\r\n        {\r\n            \"bank_name\": \"ICICI Bank\",\r\n            \"branch_name\": \"Bandra West Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"HDFC0005678\",\r\n            \"account_number\": \"987654321098\",\r\n            \"cheque\": \"another_cheque_image_url_here\",\r\n            \"is_primary\": false\r\n        }\r\n        // {\r\n        //     \"bank_name\": \"Punjab Bank\",\r\n        //     \"branch_name\": \"Bandra West Branch\",\r\n        //     \"account_holder_name\": \"Ankush Kumar\",\r\n        //     \"ifsc_code\": \"HDFC0005678\",\r\n        //     \"account_number\": \"987654321098\",\r\n        //     \"cheque\": \"another_cheque_image_url_here\",\r\n        //     \"is_primary\": false\r\n        // }\r\n        \r\n    ]\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step7 - insurance_details",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"insurance_details\",\r\n    \"insurance_details\": [\r\n        {\r\n            \"crop_name\": \"Wheat\",\r\n            \"insurance_company\": \"ABC Insurance\",\r\n            \"land\": \"Field A\",\r\n            \"insurance_worth\": \"50000\",\r\n            \"insurance_premium\": \"5000\",\r\n            \"start_date\": \"2024-01-01\",\r\n            \"end_date\": \"2024-12-31\"\r\n        },\r\n        {\r\n            \"crop_name\": \"Gram\",\r\n            \"insurance_company\": \"XYZ Insurance\",\r\n            \"land\": \"Field B\",\r\n            \"insurance_worth\": \"60000\",\r\n            \"insurance_premium\": \"6000\",\r\n            \"start_date\": \"2024-02-01\",\r\n            \"end_date\": \"2024-11-30\"\r\n        }\r\n    ]\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step8 - infrastructure",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"infrastructure_details\",\r\n    \"infrastructure_details\": {\r\n        \"warehouse\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Warehouse Name 1\", \"Warehouse Name 2\"]\r\n        },\r\n        \"coldStorage\": {\r\n            \"isOrNot\": false,\r\n            \"name\": []\r\n        },\r\n        \"processing_unit\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Processing Unit Name 1\"]\r\n        },\r\n        \"transport_facilities\": {\r\n            \"isOrNot\": false,\r\n            \"name\": []\r\n        },\r\n        \"retail_shop\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Retail Shop Name 1\"]\r\n        }\r\n    }\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step9 - Financial",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"financial_credit\",\r\n    \"financial_credit\": {\r\n        \"credit_facilities\": {\r\n            \"isOrNot\": true,\r\n            \"bank_name\": [\"ICICI\"] \r\n        },\r\n        \"financial_challenges\": \"Facing delays in payments.\",\r\n        \"support_required\": \"Advice on cash flow management.\"\r\n    }\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step10 - Marketing",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"marketing_output\",\r\n    \"marketing_output\": {\r\n        \"crop_sold\": \"Gram\",\r\n        \"quantity_sold\": \"500 kg\",\r\n        \"average_selling_price\": \"20 per kg\",\r\n        \"marketing_channel_used\": \"Local Market\",\r\n        \"challenges_faced_in_selling\": \"Competition from other sellers\"\r\n    }\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"onboarding"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step11- Land",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"land\",\r\n    \"land_mark_detail\": {\r\n        \"total_area\": \"60 acres\",\r\n        \"total_distance\": \"2 km\",\r\n        \"lat\": \"25.276987\",\r\n        \"long\": \"55.296249\",\r\n        \"land\": {\r\n            \"area\": \"10\",\r\n            \"unit\": \"Acre\"\r\n        }\r\n    },\r\n    \"address\": {\r\n        \"pin_code\": \"123456\",\r\n        \"state\": \"Maharashtra\",\r\n        \"district\": \"Pune\",\r\n        \"village\": \"Velhe\",\r\n        \"land\": {\r\n            \"area\" : \"30\",\r\n            \"unit\" : \"Acre\"\r\n        }\r\n    },\r\n    \"additional_land_info\": {\r\n        \"land_name\": \"Ram Rahim baba khet\",\r\n        \"khtauni_number\": \"KT001\",\r\n        \"khasra_number\": \"KH002\",\r\n        \"khata_number\": \"KH003\",\r\n        \"cultivation\": {\r\n            \"area\": \"8\",\r\n            \"unit\": \"Acre\"\r\n        }\r\n    },\r\n    \"soil_testing_details\": {\r\n        \"is_soil_testing\": true,\r\n        \"land\": \"Field B\",\r\n        \"soil_health_card_number\": \"SHC12345\",\r\n        \"soil_type\": \"Loam\",\r\n        \"ph_value\": \"6.5\",\r\n        \"nutrient_levels\": \"High\",\r\n        \"organic_content\": \"Moderate\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/land",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"land"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step12- Crop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"crop\",\r\n    \"crop_details\": {\r\n        \"name\": \"675accccb1bc89ce5e92a3e4\",     //////  data come cropName  _id\r\n        \"season\": \"\",\r\n        \"commodity\": \"675a8edfbbcbab89eebed8ad\", //////// data come commodities   _id\r\n        \"variety\": \"6761161f9884b64879a12fd8\", //// data come cropVariety _id\r\n        \"sowing_date\": \"2024-11-01\",\r\n        \"harvesting_date\": \"\",\r\n        \"production\": {\r\n            \"quantity\": \"500\",\r\n            \"unit\": \"Acre\"\r\n        },\r\n        \"selling_price\": \"1500\",\r\n        \"land_name\": \"676e7f1e78dda3005a8f6cda\",\r\n        \"cultivation\": {\r\n            \"area\": \"2.5\",\r\n            \"unit\": \"Hectare\"\r\n        }\r\n    },\r\n    \"crop_growth_stage\": {\r\n        \"seeding\": {\r\n            \"days_to_reach_stage\": \"\"\r\n        },\r\n        \"germination\": {\r\n            \"days_to_reach_stage\": null\r\n        },\r\n        \"vegetative_propagation\": {\r\n            \"days_to_reach_stage\": \"15\"\r\n        },\r\n        \"maturity\": {\r\n            \"expected_maturity_date\": \"2025-04-01\",\r\n            \"observation_on_maturity\": \"\"\r\n        },\r\n        \"ripening\": {\r\n            \"no_of_days_token\": \"30\",\r\n            \"signs_of_ripening\": \"\"\r\n        },\r\n        \"ready_to_hravest\": {\r\n            \"expected_harvest_date\": \"2025-04-15\",\r\n            \"yield_estimate\": {\r\n                \"yield\": \"400\",\r\n                \"unit\": \"Acre\"\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/crop",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"crop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration-step13 Farming",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"formName\": \"farmingd\",\r\n    \"crop_details\": {\r\n        \"name\": \"Wheat\",\r\n        \"variety\": \"Durum\"\r\n    },\r\n    \"farming_details\": {\r\n        \"seeds_name\": \"Golden Wheat\",\r\n        \"seed_company_name\": \"AgroSeed Corp\",\r\n        \"package_size\": \"5 kg\",\r\n        \"total_package_required\": \"10\",\r\n        \"purchase_date\": \"2024-11-01\"\r\n    },\r\n    \"fertilizer\": [\r\n        {\r\n            \"fertilizer_name\": \"Urea\",\r\n            \"fertilizer_company_name\": \"GreenFertilizers Ltd\",\r\n            \"package_size\": \"50 kg\",\r\n            \"total_package_required\": \"2\",\r\n            \"purchase_date\": \"2024-11-02\",\r\n            \"dose\": \"50 g per sq m\"\r\n        }\r\n    ],\r\n    \"micronutrients\": [\r\n        {\r\n            \"micronutrients_name\": \"Zinc\",\r\n            \"micronutrients_company_name\": \"MicroNutri Inc\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"5\",\r\n            \"purchase_date\": \"2024-11-03\",\r\n            \"dose\": \"20 g per sq m\"\r\n        },\r\n        {\r\n            \"micronutrients_name\": \"Magnisium\",\r\n            \"micronutrients_company_name\": \"MicroNutri Inc\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"5\",\r\n            \"purchase_date\": \"2024-11-03\",\r\n            \"dose\": \"20 g per sq m\"\r\n        }\r\n    ],\r\n    \"herbicides\": [\r\n        {\r\n            \"herbicides_name\": \"Glyphosate\",\r\n            \"herbicides_company_name\": \"AgriHerb Solutions\",\r\n            \"package_size\": \"1 L\",\r\n            \"total_package_required\": \"2\",\r\n            \"purchase_date\": \"2024-11-04\",\r\n            \"dose\": \"50 ml per sq m\"\r\n        }\r\n    ],\r\n    \"insecticides\": [\r\n        {\r\n            \"insecticides_name\": \"Neem Oil\",\r\n            \"insecticides_company_name\": \"NaturalProtect Ltd\",\r\n            \"package_size\": \"500 ml\",\r\n            \"total_package_required\": \"3\",\r\n            \"purchase_date\": \"2024-11-05\",\r\n            \"dose\": \"10 ml per sq m\"\r\n        }\r\n    ],\r\n    \"fungicides\": [\r\n        {\r\n            \"fungicides_name\": \"Mancozeb\",\r\n            \"fungicides_company_name\": \"FungiControl\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"4\",\r\n            \"purchase_date\": \"2024-11-06\",\r\n            \"dose\": \"5 g per sq m\"\r\n        }\r\n    ],\r\n    \"irrigation\": [\r\n        {\r\n            \"date\": \"2024-11-07\",\r\n            \"dose\": \"10 L per sq m\"\r\n        }\r\n    ],\r\n    \"farm_equipment\": [\r\n        {\r\n            \"name\": \"Tractor\"\r\n        },\r\n        {\r\n            \"name\": \"Plough\"\r\n        }\r\n    ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/farming",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"farming"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Farmer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"phone\":\"1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Farmer Onboarding",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/farmer-onboarding",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"farmer-onboarding"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Warehouse",
+					"item": [
+						{
+							"name": "Add Warehouse",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"warehouse_details\": {\r\n    \"name\": \"Japan Warehouse\",\r\n    \"capacity\": {\r\n      \"value\": 500,\r\n      \"unit\": \"673b28208b37e554012f950a\" \r\n    },\r\n    \"isWeighBridge\": true,\r\n    \"storageType\": \"dry\"\r\n  },\r\n  \"address_details\": {\r\n      \"line1\": \"123 Warehouse Road\",\r\n      \"line2\": \"Building 5\",\r\n      \"state\": \"Maharashtra\",\r\n      \"district\": \"Pune\",\r\n      \"city\": \"Pune\",\r\n      \"tehsil\": \"Pune City\",\r\n      \"pinCode\": \"411001\",\r\n      \"block\": \"Central\"\r\n    },\r\n    \r\n  \r\n  \"authorised_person\": {\r\n    \"name\": \"John Doe\",\r\n    \"designation\": \"Manager\",\r\n    \"phone\": \"9876543210\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"aadhar_doc\": {\r\n      \"aadhar_number\": \"123412341234\",\r\n      \"aadhar_image\": {\r\n        \"front\": \"https://example.com/aadhar_front.jpg\",\r\n        \"back\": \"https://example.com/aadhar_back.jpg\"\r\n      },\r\n      \"is_verified\": false\r\n    }\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/warehouse",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"warehouse"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Warehouse List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/warehouse",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"warehouse"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"warehouseId\" :\"6740607aa493b7f5c77c4e5a\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/warehouse/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"warehouse",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Farmers",
+					"item": [
+						{
+							"name": "Add Farmer",
+							"item": [
+								{
+									"name": "Step1-basicDetails",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"basic_details\",\r\n    \"basic_details\": {\r\n        \"farmer_name\" : \"Imran\",\r\n        \"father_husband_name\": \"hasmi\",\r\n        \"email\": \"imran@navankur.org\",\r\n        \"phone\": \"7417999583\",\r\n        \"establishment_date\" : \"20-12-2024\",\r\n        \"dob\" : \"20-12-2000\",\r\n        \"gender\" : \"male\",\r\n        \"category\" : \"gen\",\r\n        \"profile_photo\":\"ksjdfdfskjdsfkjdfskj.jpg\",\r\n        \"farmer_type\" : \"Individual\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/basic-details",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"basic-details"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step2-address",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"address\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"address\": [\r\n        {\r\n            \"line1\": \"Haryana Main St\",\r\n            \"line2\": \"Apt 4B\",\r\n            \"country\": \"CountryName\",\r\n            \"state\": \"StateName\",\r\n            \"district\": \"DistrictName\",\r\n            \"block\": \"blockName\",\r\n            \"tehsil\": \"TalukaName\",\r\n            \"pinCode\": \"123456\"\r\n        },\r\n        {\r\n            \"line1\": \"Address line 2\",\r\n            \"line2\": \"Apt 4B\",\r\n            \"country\": \"CountryName\",\r\n            \"state\": \"StateName\",\r\n            \"district\": \"DistrictName\",\r\n            \"block\": \"blockName\",\r\n            \"tehsil\": \"TalukaName\",\r\n            \"pinCode\": \"123456\"\r\n        }\r\n    ]\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step3-Bank",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"bank_details\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"bank_details\": [\r\n        {\r\n            \"bank_name\": \"State Bank of India\",\r\n            \"branch_name\": \"MG Road Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"SBIN0001234\",\r\n            \"account_number\": \"123456789012\",\r\n            \"cheque\": \"cheque_image_url_here\",\r\n            \"is_primary\": true\r\n        },\r\n        {\r\n            \"bank_name\": \"HDFC Bank\",\r\n            \"branch_name\": \"Bandra West Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"HDFC0005678\",\r\n            \"account_number\": \"987654321098\",\r\n            \"cheque\": \"another_cheque_image_url_here\",\r\n            \"is_primary\": false\r\n        },\r\n        {\r\n            \"bank_name\": \"ICICI Bank\",\r\n            \"branch_name\": \"Bandra West Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"HDFC0005678\",\r\n            \"account_number\": \"987654321098\",\r\n            \"cheque\": \"another_cheque_image_url_here\",\r\n            \"is_primary\": false\r\n        },\r\n        {\r\n            \"bank_name\": \"Punjab Bank\",\r\n            \"branch_name\": \"Bandra West Branch\",\r\n            \"account_holder_name\": \"Ankush Kumar\",\r\n            \"ifsc_code\": \"HDFC0005678\",\r\n            \"account_number\": \"987654321098\",\r\n            \"cheque\": \"another_cheque_image_url_here\",\r\n            \"is_primary\": false\r\n        }\r\n        \r\n    ]\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step4 - insurance",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"insurance_details\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"insurance_details\": [\r\n        {\r\n            \"crop_name\": \"Wheat\",\r\n            \"insurance_company\": \"ABC Insurance\",\r\n            \"land\": \"Field A\",\r\n            \"insurance_worth\": \"50000\",\r\n            \"insurance_premium\": \"5000\",\r\n            \"start_date\": \"2024-01-01\",\r\n            \"end_date\": \"2024-12-31\"\r\n        },\r\n        {\r\n            \"crop_name\": \"Gram\",\r\n            \"insurance_company\": \"XYZ Insurance\",\r\n            \"land\": \"Field B\",\r\n            \"insurance_worth\": \"60000\",\r\n            \"insurance_premium\": \"6000\",\r\n            \"start_date\": \"2024-02-01\",\r\n            \"end_date\": \"2024-11-30\"\r\n        }\r\n    ]\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step4.1 - KYC",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"kyc_details\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"kyc_details\": {\r\n        \"aadhar_doc\": {\r\n            \"aadhar_number\": \"123456789012\",\r\n            \"aadhar_image\": {\r\n                \"front\": \"https://example.com/path/to/aadhar_front.jpg\",\r\n                \"back\": \"https://example.com/path/to/aadhar_back.jpg\"\r\n            },\r\n            \"is_verified\": false\r\n        },\r\n        \"pan_doc\": {\r\n            \"pan_number\": \"ABCDE1234F\",\r\n            \"pan_image\": \"https://example.com/path/to/pan_image.jpg\",\r\n            \"is_verified\": false\r\n        }\r\n    }\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step5 - infrastructure",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"infrastructure_details\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"infrastructure_details\": {\r\n        \"warehouse\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Warehouse Name 1\", \"Warehouse Name 2\"]\r\n        },\r\n        \"coldStorage\": {\r\n            \"isOrNot\": false,\r\n            \"name\": []\r\n        },\r\n        \"processing_unit\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Processing Unit Name 1\"]\r\n        },\r\n        \"transport_facilities\": {\r\n            \"isOrNot\": false,\r\n            \"name\": []\r\n        },\r\n        \"retail_shop\": {\r\n            \"isOrNot\": true,\r\n            \"name\": [\"Retail Shop Name 1\"]\r\n        }\r\n    }\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step6 - Financial",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"financial_credit\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"financial_credit\": {\r\n        \"credit_facilities\": {\r\n            \"isOrNot\": true,\r\n            \"bank_name\": [\"ICICI\"] \r\n        },\r\n        \"financial_challenges\": \"Facing delays in payments.\",\r\n        \"support_required\": \"Advice on cash flow management.\"\r\n    }\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step7 - Marketing",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"marketing_output\",\r\n    \"farmerId\" : \"67595e22938c0f8b0805568c\",\r\n    \"marketing_output\": {\r\n        \"crop_sold\": \"Gram\",\r\n        \"quantity_sold\": \"500 kg\",\r\n        \"average_selling_price\": \"20 per kg\",\r\n        \"marketing_channel_used\": \"Local Market\",\r\n        \"challenges_faced_in_selling\": \"Competition from other sellers\"\r\n    }\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/save-farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"save-farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step-8-Land",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"land\",\r\n    \"farmerId\" : \"6746b225e87e245995193dee\",\r\n    \"land_mark_detail\": {\r\n        // \"total_area\": \"400 acres\",\r\n        // \"total_distance\": \"2 km\",\r\n        \"lat\": \"25.276987\",\r\n        \"long\": \"55.296249\"\r\n        \r\n    },\r\n    \"address\": {\r\n        \"pin_code\": \"123456\",\r\n        \"state\": \"Maharashtra\",\r\n        \"district\": \"Pune\",\r\n        \"village\": \"Velhe\",\r\n        \"land\": {\r\n            \"area\": \"10\",\r\n            \"unit\": \"Acre\"\r\n        }\r\n    },\r\n    \"additional_land_info\": {\r\n        \"land_name\": \"Green Fields\",\r\n        \"khtauni_number\": \"KT001\",\r\n        \"khasra_number\": \"KH002\",\r\n        \"khata_number\": \"KH003\",\r\n        \"cultivation\": {\r\n            \"area\": \"8\",\r\n            \"unit\": \"Acre\"\r\n        }\r\n    },\r\n    \"soil_testing_details\": {\r\n        \"is_soil_testing\": true,\r\n        \"land\": \"Field B\",\r\n        \"soil_health_card_number\": \"SHC12345\",\r\n        \"soil_type\": \"Loam\",\r\n        \"ph_value\": \"6.5\",\r\n        \"nutrient_levels\": \"High\",\r\n        \"organic_content\": \"Moderate\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/land",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"land"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step9- Crop",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"crop\",\r\n    \"farmerId\" : \"6746b225e87e245995193dee\",\r\n    \"crop_details\": {\r\n        \"name\": \"Maize\",\r\n        \"season\": \"\",\r\n        \"commodity\": \"Grains\",\r\n        \"variety\": \"Durum\",\r\n        \"sowing_date\": \"2024-11-01\",\r\n        \"harvesting_date\": \"\",\r\n        \"production\": {\r\n            \"quantity\": \"500\",\r\n            \"unit\": \"Acre\"\r\n        },\r\n        \"selling_price\": \"1500\",\r\n        \"land_name\": \"\",\r\n        \"cultivation\": {\r\n            \"area\": \"2.5\",\r\n            \"unit\": \"Hectare\"\r\n        }\r\n    },\r\n    \"crop_growth_stage\": {\r\n        \"seeding\": {\r\n            \"days_to_reach_stage\": \"\"\r\n        },\r\n        \"germination\": {\r\n            \"days_to_reach_stage\": null\r\n        },\r\n        \"vegetative_propagation\": {\r\n            \"days_to_reach_stage\": \"15\"\r\n        },\r\n        \"maturity\": {\r\n            \"expected_maturity_date\": \"2025-04-01\",\r\n            \"observation_on_maturity\": \"\"\r\n        },\r\n        \"ripening\": {\r\n            \"no_of_days_token\": \"30\",\r\n            \"signs_of_ripening\": \"\"\r\n        },\r\n        \"ready_to_hravest\": {\r\n            \"expected_harvest_date\": \"2025-04-15\",\r\n            \"yield_estimate\": {\r\n                \"yield\": \"400\",\r\n                \"unit\": \"Acre\"\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/crop",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"crop"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Step10 Farming",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"formName\": \"farming\",\r\n    \"farmerId\" : \"6746b225e87e245995193dee\",\r\n    \"crop_details\": {\r\n        \"name\": \"Wheat\",\r\n        \"variety\": \"Durum\"\r\n    },\r\n    \"farming_details\": {\r\n        \"seeds_name\": \"Golden Wheat\",\r\n        \"seed_company_name\": \"AgroSeed Corp\",\r\n        \"package_size\": \"5 kg\",\r\n        \"total_package_required\": \"10\",\r\n        \"purchase_date\": \"2024-11-01\"\r\n    },\r\n    \"fertilizer\": [\r\n        {\r\n            \"fertilizer_name\": \"Urea\",\r\n            \"fertilizer_company_name\": \"GreenFertilizers Ltd\",\r\n            \"package_size\": \"50 kg\",\r\n            \"total_package_required\": \"2\",\r\n            \"purchase_date\": \"2024-11-02\",\r\n            \"dose\": \"50 g per sq m\"\r\n        }\r\n    ],\r\n    \"micronutrients\": [\r\n        {\r\n            \"micronutrients_name\": \"Zinc\",\r\n            \"micronutrients_company_name\": \"MicroNutri Inc\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"5\",\r\n            \"purchase_date\": \"2024-11-03\",\r\n            \"dose\": \"20 g per sq m\"\r\n        },\r\n        {\r\n            \"micronutrients_name\": \"Magnisium\",\r\n            \"micronutrients_company_name\": \"MicroNutri Inc\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"5\",\r\n            \"purchase_date\": \"2024-11-03\",\r\n            \"dose\": \"20 g per sq m\"\r\n        }\r\n    ],\r\n    \"herbicides\": [\r\n        {\r\n            \"herbicides_name\": \"Glyphosate\",\r\n            \"herbicides_company_name\": \"AgriHerb Solutions\",\r\n            \"package_size\": \"1 L\",\r\n            \"total_package_required\": \"2\",\r\n            \"purchase_date\": \"2024-11-04\",\r\n            \"dose\": \"50 ml per sq m\"\r\n        }\r\n    ],\r\n    \"insecticides\": [\r\n        {\r\n            \"insecticides_name\": \"Neem Oil\",\r\n            \"insecticides_company_name\": \"NaturalProtect Ltd\",\r\n            \"package_size\": \"500 ml\",\r\n            \"total_package_required\": \"3\",\r\n            \"purchase_date\": \"2024-11-05\",\r\n            \"dose\": \"10 ml per sq m\"\r\n        }\r\n    ],\r\n    \"fungicides\": [\r\n        {\r\n            \"fungicides_name\": \"Mancozeb\",\r\n            \"fungicides_company_name\": \"FungiControl\",\r\n            \"package_size\": \"1 kg\",\r\n            \"total_package_required\": \"4\",\r\n            \"purchase_date\": \"2024-11-06\",\r\n            \"dose\": \"5 g per sq m\"\r\n        }\r\n    ],\r\n    \"irrigation\": [\r\n        {\r\n            \"date\": \"2024-11-07\",\r\n            \"dose\": \"10 L per sq m\"\r\n        }\r\n    ],\r\n    \"farm_equipment\": [\r\n        {\r\n            \"name\": \"Tractor\"\r\n        },\r\n        {\r\n            \"name\": \"Plough\"\r\n        }\r\n    ]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/farming",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"farming"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Farmer Onboarding",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/auth/farmer-onboarding",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"auth",
+												"farmer-onboarding"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Farmer",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Farmer Detail",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{local-ondc}}/v1/farmer/farmer/farmer-detail/67595e22938c0f8b0805568c",
+											"host": [
+												"{{local-ondc}}"
+											],
+											"path": [
+												"v1",
+												"farmer",
+												"farmer",
+												"farmer-detail",
+												"67595e22938c0f8b0805568c"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Inventory",
+					"item": [
+						{
+							"name": "Inventory List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/inventory",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"inventory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Stats",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/inventory/stats",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"inventory",
+										"stats"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "Order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/order",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"order"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Quotation",
+					"item": [
+						{
+							"name": "getquotation",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/quotation/",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"quotation",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getquotationById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/quotation/674ede34cf63b50f37c62413",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"quotation",
+										"674ede34cf63b50f37c62413"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getCounts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/quotation/counts",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"quotation",
+										"counts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order Quote",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "// {\r\n//     \"id\" : \"674ede34cf63b50f37c62413\",\r\n//     \"status\" : \"Rejected\"\r\n// }\r\n\r\n{\r\n    \"id\" : \"674ede34cf63b50f37c62413\",\r\n    \"status\" : \"Requoted\",\r\n    \"discount\" : \"10\",\r\n    \"discountType\" : \"Percentage\",\r\n    \"packagingCharge\" : \"40\",\r\n    \"logisticCharge\" : \"50.00\",\r\n    \"paymentType\" : \"ON-FULFILLMENT\",\r\n    \"deliveryTerms\" : \"CIF\",\r\n    \"tradeDocument\" : {\r\n        \"document_type\" : \"import\",\r\n        \"document_image\" : \"adffasasasa.png\"\r\n    },\r\n    \"totalPrice\" : \"200\"\r\n}\r\n\r\n\r\n// {\r\n//     \"id\" : \"674ede34cf63b50f37c62413\",\r\n//     \"status\" : \"Accepted\",\r\n//     \"lots\" : [{\r\n//         \"id\" : \"674d7bf8a6a9f9029d6ec166\",\r\n//         \"qty\" : \"4\"\r\n//     },{\r\n//         \"id\" : \"674abd39d6980516172d4a5e\",\r\n//         \"qty\" : \"6.2\"\r\n//     }],\r\n//     \"discount\" : \"11\",\r\n//     \"discountType\" : \"Percentage\",\r\n//     \"packagingCharge\" : \"40\",\r\n//     \"logisticCharge\" : \"50.00\",\r\n//     \"paymentType\" : \"ON-FULFILLMENT\",\r\n//     \"deliveryTerms\" : \"CIF\",\r\n//     \"tradeDocument\" : {\r\n//         \"document_type\" : \"import\",\r\n//         \"document_image\" : \"adffasasasa.png\"\r\n//     },\r\n//     \"totalPrice\" : \"200\"\r\n\r\n// }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/quotation/",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"quotation",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Lots",
+					"item": [
+						{
+							"name": "Add Lot",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"product_id\": \"67653ea3d3a061532e9cf038\",\r\n  \"inventory_id\": \"67653ea3d3a061532e9cf038\",\r\n  \"lot_details\": {\r\n    \"farmer_id\": \"6767b1e78ddc0ae86ede709a\",\r\n    \"quantity\": {\r\n      \"value\": 100,\r\n      \"unit\": \"673b28208b37e554012f950a\"\r\n    },\r\n    \"product_expiry\": \"2025-12-31\",\r\n    \"product_price\": \"1500\",\r\n    \"warehouse\": \"Warehouse 1\"\r\n  },\r\n  \"additional_details\": {\r\n    \"land\": \"Land 1\",\r\n    \"commodity\": \"Wheat\",\r\n    \"crop\": \"Crop 1\",\r\n    \"crop_variety\": \"Variety 1\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/lot",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"lot"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Lot List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/lot/list/6749a75a1ef11be08a2d164d",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"lot",
+										"list",
+										"6749a75a1ef11be08a2d164d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCropByLand",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/get-crop-By-land/676e7f1e78dda3005a8f6cda",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"get-crop-By-land",
+										"676e7f1e78dda3005a8f6cda"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCommodityByCrop",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/get-commodity-By-crop/675accccb1bc89ce5e92a3e4",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"get-commodity-By-crop",
+										"675accccb1bc89ce5e92a3e4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetVarietyByCommodityId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/farmer/auth/get-variety-By-land/675a8edfbbcbab89eebed8ad",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"farmer",
+										"auth",
+										"get-variety-By-land",
+										"675a8edfbbcbab89eebed8ad"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Lot",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lotId\" : \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/associate/lot/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"associate",
+										"lot",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ONDC",
+			"item": [
+				{
+					"name": "https://virtserver.swaggerhub.com/ONDC/ONDC-Registry-Onboarding/2.0.5/subscribe",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"context\": {\n    \"operation\": {\n      \"ops_no\": 2\n    }\n  },\n  \"message\": {\n    \"request_id\": \"2c50baa8-6fb5-4241-a523-4a692c15386c\",\n    \"timestamp\": \"2024-11-13T13:44:54.101Z\",\n    \"entity\": {\n      \"gst\": {\n        \"legal_entity_name\": \"Kheti Sauda\",\n        \"business_address\": \"Noida Sector 62 Utter Pradesh 333333\",\n        \"city_code\": [\n          \"std:080\"\n        ],\n        \"gst_no\": \"07AAACN2082N4Z7\"\n      },\n      \"pan\": {\n        \"name_as_per_pan\": \"ABC Incorporates\",\n        \"pan_no\": \"ASDFP7657Q\",\n        \"date_of_incorporation\": \"23/06/1982\"\n      },\n      \"name_of_authorised_signatory\": \"Anand Sharma\",\n      \"address_of_authorised_signatory\": \"405, Pinnacle House, Kandiwali, Mumbai 400001\",\n      \"email_id\": \"anand.sharma@abc.com\",\n      \"mobile_no\": 9912332199,\n      \"country\": \"IND\",\n      \"subscriber_id\": \"testing-ondc.khetisauda.com\",\n      \"unique_key_id\": \"27baa06d-f90a-486c-85e5-cc621b787f04\",\n      \"callback_url\": \"/ondc/onboarding\",\n      \"key_pair\": {\n        \"signing_public_key\": \"KMhww0/Q+yjo8fGcm93zU/JBf5cZLKCPQ7RB+4vUtyM=\",\n        \"encryption_public_key\": \"MCowBQYDK2VuAyEAduMuZgmtpjdCuxv+Nc49K0cB6tL/Dj3HZetvVN7ZekM=\",\n        \"valid_from\": \"2025-07-08T13:44:54.101Z\",\n        \"valid_until\": \"2025-07-08T13:44:54.101Z\"\n      }\n    },\n    \"network_participant\": [\n      {\n        \"subscriber_url\": \"https://testing-ondc.khetisauda.com/ondc/subscribe\",\n        \"domain\": \"nic2004:52110\",\n        \"type\": \"sellerApp\",\n        \"msn\": false,\n        \"city_code\": [\n          \"std:080\"\n        ]\n      }\n    ]\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://virtserver.swaggerhub.com/ONDC/ONDC-Registry-Onboarding/2.0.5/subscribe",
+							"protocol": "https",
+							"host": [
+								"virtserver",
+								"swaggerhub",
+								"com"
+							],
+							"path": [
+								"ONDC",
+								"ONDC-Registry-Onboarding",
+								"2.0.5",
+								"subscribe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://virtserver.swaggerhub.com/ONDC/ONDC-Registry-Onboarding/2.0.5/callback_url/on_subscribe",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"subscriber_id\": \"testing-ondc.khetisauda.com\",\n  \"challenge\": \"encrypted_challenge_string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://virtserver.swaggerhub.com/ONDC/ONDC-Registry-Onboarding/2.0.5/callback_url/on_subscribe",
+							"protocol": "https",
+							"host": [
+								"virtserver",
+								"swaggerhub",
+								"com"
+							],
+							"path": [
+								"ONDC",
+								"ONDC-Registry-Onboarding",
+								"2.0.5",
+								"callback_url",
+								"on_subscribe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://virtserver.swaggerhub.com/ONDC/ONDC-Registry-Onboarding/2.0.5/lookup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"subscriber_id\": \"testing-ondc.khetisauda.com\",\n  \"country\": \"IND\",\n  \"ukId\": \"string\",\n  \"city\": \"std:080\",\n  \"domain\": \"2929997228_DOMAIN_COM-VRSN\",\n  \"type\": \"BAP\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://virtserver.swaggerhub.com/ONDC/ONDC-Registry-Onboarding/2.0.5/lookup",
+							"protocol": "https",
+							"host": [
+								"virtserver",
+								"swaggerhub",
+								"com"
+							],
+							"path": [
+								"ONDC",
+								"ONDC-Registry-Onboarding",
+								"2.0.5",
+								"lookup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://virtserver.swaggerhub.com/ONDC/ONDC-Registry-Onboarding/2.0.5/vlookup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"sender_subscriber_id\": \"testing-ondc.khetisauda.com\",\n  \"request_id\": \"2c50baa8-6fb5-4241-a523-4a692c15386c\",\n  \"timestamp\": \"2024-08-29T09:12:33.001Z\",\n  \"search_parameters\": {\n    \"country\": \"IND\",\n    \"domain\": \"nic2004:52110\",\n    \"type\": \"sellerApp or byerApp\",\n    \"city\": \"std:080\",\n    \"subscriber_id\": \"testing-ondc.khetisauda.com/ondc\"\n  },\n  \"signature\": \"Y8Q8yyVI4zCrsCX3e1WlKfJL8Vd7GRBjUoITIH1ISVmDfwxRfJ3xgLu0Pfw4seKRTaGuOdyxDFdVspJckdPFAA==\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://virtserver.swaggerhub.com/ONDC/ONDC-Registry-Onboarding/2.0.5/vlookup",
+							"protocol": "https",
+							"host": [
+								"virtserver",
+								"swaggerhub",
+								"com"
+							],
+							"path": [
+								"ONDC",
+								"ONDC-Registry-Onboarding",
+								"2.0.5",
+								"vlookup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Masters",
+			"item": [
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "List Category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/category",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List SubCategory",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/category/subcategories/676172e3f3217f852b4a4ee0",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"category",
+										"subcategories",
+										"676172e3f3217f852b4a4ee0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Category Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "// {\r\n//     \"name\": \"Electronics\",\r\n//     \"code\": \"ELEC001\"\r\n    \r\n// }\r\n{\r\n    \"name\": \"TV\",\r\n    \"code\": \"MOB003\",\r\n    \"parent_category\": \"673ae1f5d124d10f2b826624\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/category",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Category",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"categoryId\" : \"673ae27ae69a63f502b75758\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/category/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"category",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Currency",
+					"item": [
+						{
+							"name": "List Ccurrency",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/currency",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"currency"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Ccurrency Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/currency/list",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"currency",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Currency Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Indian Rupee\",\r\n    \"code\": \"inr\",\r\n    \"symbol\": \"₹\",\r\n    \"exchange_rate_to_usd\": 0.012,\r\n    \"decimal_places\": 2,\r\n    \"is_active\": true,\r\n    \"country\": \"India\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/currency",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"currency"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Category",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"currencyId\" : \"673b224e2bff3933c6f46317\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/currency/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"currency",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Country",
+					"item": [
+						{
+							"name": "List country",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/country",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"country"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "india",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "country Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Indian Rupee\",\r\n    \"code\": \"inr\",\r\n    \"symbol\": \"₹\",\r\n    \"exchange_rate_to_usd\": 0.012,\r\n    \"decimal_places\": 2,\r\n    \"is_active\": true,\r\n    \"country\": \"India\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/currency",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"currency"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Currency",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"currencyId\" : \"673b224e2bff3933c6f46317\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/country/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"country",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Unit",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/unit",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"unit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Liter\",\r\n    \"code\": \"L\",\r\n    \"symbol\": \"L\",\r\n    \"category\": \"Volume\",\r\n    \"conversion_to_base\": 1,\r\n    \"base_unit\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/unit",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"unit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"categoryId\" : \"673ae27ae69a63f502b75758\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/unit/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"unit",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Crop",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/cropName/",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"cropName",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Commodity",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/commodity/",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"commodity",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cropvariety",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/cropvariety/variety/675acaf2b1bc89ce5e92a3b1",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"cropvariety",
+										"variety",
+										"675acaf2b1bc89ce5e92a3b1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HSCode",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/hscode",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"hscode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"chapter\": \"1\",\r\n    \"hs_code\": \"102\",\r\n    \"description\": \"LIVE BOVINE ANIMALS   \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/hscode",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"hscode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"HSCodeId\" : \"673daa1881a1aac0976c617a\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/hscode/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"hscode",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Incoterms",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/incoterms",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"incoterms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"DPU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/incoterms",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"incoterms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"IncotermsId\" : \"673db00324f0f6117f80a47f\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/masters/incoterms/delete",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"masters",
+										"incoterms",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "User Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"Ankush\",\r\n    \"last_name\": \"Kumar\",\r\n    \"email\": \"ankush.kumar@example.com\",\r\n    \"phone\": \"9876543210\",\r\n    \"profile_pic\": \"https://example.com/profile.png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local-ondc}}/v1/admin/user",
+									"host": [
+										"{{local-ondc}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local-ondc}}/v1/admin/product",
+							"host": [
+								"{{local-ondc}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Associate List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local-ondc}}/v1/admin/associate",
+							"host": [
+								"{{local-ondc}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"associate"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "mnbv",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Farmer List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local-ondc}}/v1/admin/farmer",
+							"host": [
+								"{{local-ondc}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"farmer"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "fggf",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Status Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\" : \"674065abb535be031aedda9b\",\r\n    \"status\" : \"approved\",\r\n    \"rejected_reason\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local-ondc}}/v1/admin/product/status-update",
+							"host": [
+								"{{local-ondc}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"product",
+								"status-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Farmer Status Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"farmerId\" : \"67611e0cb02947a97c3d9e77\",\r\n    \"status\" : \"approved\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local-ondc}}/v1/admin/farmer/status-update",
+							"host": [
+								"{{local-ondc}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"farmer",
+								"status-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Status Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : \"6770e7aec40258bec8f96b40\",\r\n    \"status\" : \"approved\",\r\n    \"profession_type\": \"farmer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local-ondc}}/v1/admin/associate/status-update",
+							"host": [
+								"{{local-ondc}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"associate",
+								"status-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"ankush.kumar@example.com\",\r\n    \"password\" : \"admin@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local-ondc}}/v1/admin/user/login",
+							"host": [
+								"{{local-ondc}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AWS",
+			"item": [
+				{
+					"name": "Upload Images",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "folder_name",
+									"value": "catelogue",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/Ankush/Pictures/Screenshots/Screenshot (2).png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local-ondc}}/v1/aws/upload",
+							"host": [
+								"{{local-ondc}}"
+							],
+							"path": [
+								"v1",
+								"aws",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
