@@ -1,8 +1,8 @@
 # manjeet-qa-portfolio
 
 **Software QA Engineer | Manual & API Testing | Postman | JIRA | Selenium (Basic)**  
-India  
-singh.manjeet0955@gmail.com  
+Noida, India  
+Email- singh.manjeet0955@gmail.com  
 LinkedIn: https://www.linkedin.com/in/qamanjeetsingh  
 
 ---
